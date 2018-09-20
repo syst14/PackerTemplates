@@ -1,6 +1,6 @@
 {
   "variables": {
-    "wp_version": null
+    "wp_version": "latest"
     },
   "builders": [{
     "type": "azure-arm",
