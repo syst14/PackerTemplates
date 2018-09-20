@@ -1,0 +1,36 @@
+{
+  "variables": {
+    "wp_version": null
+    },
+  "builders": [{
+    "type": "azure-arm",
+
+    "client_id": "8c08547e-1fda-4b07-83f9-b56acceeceec",
+    "client_secret": "72d17f7d-4ec7-467d-a849-ebb677a00c3c",
+    "tenant_id": "cae8231a-0c04-4204-9bd3-032b0be50657",
+    "subscription_id": "e5fe97d5-6a16-4dd5-b714-9ad348daf342",
+
+    "managed_image_resource_group_name": "PackerGroup",
+    "managed_image_name": "wpPackerImage",
+
+    "os_type": "Linux",
+    "image_publisher": "credativ",
+    "image_offer": "Debian",
+    "image_sku": "9",
+
+    "azure_tags": {
+        "dept": "Self",
+        "task": "Image deployment"
+    },
+
+    "location": "East US",
+    "vm_size": "Standard_DS1_v2"
+  }],
+  "provisioners": [{
+    "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+    "type": "shell",
+    "script": "scripts/wp.sh",
+    "environment_vars": [ "wp_version={{user `wp_version`}}" ],
+    "skip_clean": true
+  }]
+}
